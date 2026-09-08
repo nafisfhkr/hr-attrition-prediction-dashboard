@@ -1,1 +1,9 @@
-data/
+venv/
+.git/
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+*.zip
+data/dashboard_employee_data.csv
+data/prediction_result.csv
+metabase.db.mv.db
