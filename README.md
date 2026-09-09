@@ -8,11 +8,42 @@ Jaya Jaya Maju menghadapi masalah employee attrition yang dapat meningkatkan bia
 
 Dari 1.058 data karyawan yang memiliki label, 179 karyawan mengalami attrition sehingga attrition rate sebesar 16,92%. Angka tersebut menunjukkan bahwa attrition perlu dipantau secara sistematis melalui analisis dan dashboard.
 
-### Project Scope
+### Cakupan Proyek
 
 Proyek ini mencakup analisis data employee-level, EDA untuk menemukan faktor yang berkaitan dengan attrition, pembuatan model klasifikasi, penyimpanan pipeline model untuk prediksi data baru, serta pembuatan dataset dan dashboard Metabase untuk monitoring HR. Deployment ke lingkungan production tidak termasuk dalam scope.
 
-### Preparation
+### Persiapan
+
+#### Sumber Data
+
+Dataset yang digunakan adalah IBM HR Analytics Employee Attrition & Performance dari [Kaggle](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset). Salinan dataset yang digunakan berada di `data/employee_data.csv`.
+
+#### Membuat dan Mengaktifkan Virtual Environment
+
+Jalankan dari folder `submission`:
+
+```bash
+python -m venv venv
+```
+
+Windows PowerShell:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+macOS/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+Install dependency dan buka notebook:
+
+```bash
+pip install -r requirements.txt
+jupyter notebook notebook.ipynb
+```
 
 Data dibaca dari `data/employee_data.csv`. Target `Attrition` dipisahkan menjadi data berlabel dan data tanpa label. Sebanyak 412 baris tanpa label dipisahkan dan tidak digunakan untuk training. Data berlabel dibersihkan, target diubah menjadi integer, fitur kategorikal di-encode, dan data dibagi secara stratified menjadi data train dan test.
 
@@ -75,7 +106,7 @@ Pada hasil Run All saat ini, Random Forest terpilih dengan accuracy 0,863, preci
 
 Model terpilih disimpan sebagai pipeline lengkap di `model/attrition_model.pkl`.
 
-## Dashboard Plan / Dashboard Documentation
+## Business Dashboard
 
 Dashboard telah dibuat secara manual menggunakan **Metabase**.
 
@@ -100,6 +131,19 @@ Visualisasi yang perlu dibuat:
 - Distribusi Age berdasarkan Attrition
 
 `AttritionLabel` pada dataset dashboard berisi label yang mudah dibaca: `Tidak Attrition` atau `Attrition`. Dataset dashboard diimpor ke MySQL lokal dan digunakan sebagai sumber data Metabase. File `metabase.db.mv.db` menyimpan konfigurasi Metabase, pertanyaan, dan dashboard yang telah dibuat.
+
+### Cara Menjalankan Dashboard Metabase
+
+Gunakan Metabase versi `v0.46.4` dan jalankan perintah berikut dari folder submission:
+
+```powershell
+docker pull metabase/metabase:v0.46.4
+docker create --name metabase -p 3000:3000 metabase/metabase:v0.46.4
+docker cp .\metabase.db.mv.db metabase:/metabase.db.mv.db
+docker start metabase
+```
+
+Setelah container selesai startup, akses dashboard melalui [http://localhost:3000](http://localhost:3000). Jika container `metabase` sudah pernah dibuat, gunakan `docker start metabase` tanpa menjalankan `docker create` lagi.
 
 ## Conclusion
 
