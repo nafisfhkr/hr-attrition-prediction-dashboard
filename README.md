@@ -2,13 +2,19 @@
 
 ## Business Understanding
 
-### Business problem
+### Business Problem
 
-Jaya Jaya Maju perlu memahami faktor yang berkaitan dengan employee attrition agar HR dapat memprioritaskan tindakan retention. Dari 1.058 data karyawan yang memiliki label, 179 karyawan mengalami attrition sehingga attrition rate sebesar 16,92%.
+Jaya Jaya Maju menghadapi masalah employee attrition yang dapat meningkatkan biaya rekrutmen, onboarding, dan pelatihan karyawan baru. Tingginya attrition juga dapat mengganggu produktivitas dan kesinambungan pekerjaan di dalam perusahaan. Karena itu, departemen HR membutuhkan analisis berbasis data untuk mengetahui kelompok karyawan yang memiliki risiko attrition lebih tinggi dan menentukan prioritas program retention.
 
-### Project scope dan preparation
+Dari 1.058 data karyawan yang memiliki label, 179 karyawan mengalami attrition sehingga attrition rate sebesar 16,92%. Angka tersebut menunjukkan bahwa attrition perlu dipantau secara sistematis melalui analisis dan dashboard.
 
-Proyek ini menganalisis data employee-level, membuat model klasifikasi attrition, menyimpan pipeline model untuk prediksi data baru, dan menyiapkan dataset bersih untuk dashboard Metabase. Sebanyak 412 baris tanpa label dipisahkan dan tidak digunakan untuk training.
+### Project Scope
+
+Proyek ini mencakup analisis data employee-level, EDA untuk menemukan faktor yang berkaitan dengan attrition, pembuatan model klasifikasi, penyimpanan pipeline model untuk prediksi data baru, serta pembuatan dataset dan dashboard Metabase untuk monitoring HR. Deployment ke lingkungan production tidak termasuk dalam scope.
+
+### Preparation
+
+Data dibaca dari `data/employee_data.csv`. Target `Attrition` dipisahkan menjadi data berlabel dan data tanpa label. Sebanyak 412 baris tanpa label dipisahkan dan tidak digunakan untuk training. Data berlabel dibersihkan, target diubah menjadi integer, fitur kategorikal di-encode, dan data dibagi secara stratified menjadi data train dan test.
 
 ### Tujuan proyek
 
@@ -42,7 +48,7 @@ Insight utama dari data berlabel:
 
 Notebook menyajikan tabel dan visualisasi EDA untuk memvalidasi insight tersebut.
 
-## Data Preparation
+## Data Preparation / Preprocessing
 
 - Data dipisahkan menjadi data berlabel dan data tanpa label.
 - Hanya data berlabel yang digunakan untuk modeling.
@@ -162,4 +168,3 @@ submission/
 ├── metabase.db.mv.db
 └── nafis_fakhru-dashboard.png
 ```
-
